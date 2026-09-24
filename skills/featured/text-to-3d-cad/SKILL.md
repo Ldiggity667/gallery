@@ -21,13 +21,16 @@ Use this skill to help **Gemma-4-E2B-it** turn a design brief into a reproducibl
 Call the `run_js` tool with the following exact parameters:
 
 - script name: `index.html`
-- data: A JSON string with the following fields:
+- data: A JSON string whose object must use this shape:
   - request: Full user request. String.
-  - preferred_route: Optional. One of `precise`, `organic`, `hybrid`, or `auto`.
-  - preferred_profile: Optional. One of `standard`, `complex-mechanical-assembly`, or `auto`.
-  - preferred_units: Optional. Canonical units if the user provided them, otherwise `auto`. String.
-  - requested_outputs: Optional. Requested deliverables such as `STEP`, `STL`, `3MF`, `GLB`, `DXF`, or `preview`. Array of strings or comma-separated string.
+  - preferred_route: Optional. If present, one of `precise`, `organic`, or `hybrid`.
+  - preferred_profile: Optional. If present, one of `standard` or `complex-mechanical-assembly`.
+  - preferred_units: Optional. Canonical units if the user provided them. String.
+  - requested_outputs: Optional. Array of strings such as `STEP`, `STL`, `3MF`, `GLB`, `DXF`, or `preview`.
   - notes: Optional extra constraints, assumptions, or risks. String.
+
+If an optional value is unknown or not stated by the user, omit that field
+instead of inventing a placeholder value.
 
 After the tool returns, use the normalized brief and follow these rules:
 
